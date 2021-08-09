@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
-    var diceImage: ImageView? = null
+    lateinit var diceImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +25,6 @@ class MainActivity : AppCompatActivity() {
             5    -> R.drawable.dice_5
             else -> R.drawable.dice_6
         }
-        diceImage?.setImageResource(drawableResource)
+        diceImage.setImageResource(drawableResource)
     }
 }

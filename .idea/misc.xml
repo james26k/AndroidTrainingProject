@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/dice_4.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/drawable/empty_dice.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/layout/activity_coroutines_playground.xml" value="0.13044579533941236" />
+        <entry key="app/src/main/res/layout/activity_dice_roll.xml" value="0.13044579533941236" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>

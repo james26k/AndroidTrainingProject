@@ -7,7 +7,7 @@ import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
     lateinit var leftDiceImage: ImageView
-    lateinit var rigthDiceImage: ImageView
+    lateinit var rightDiceImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,12 +15,12 @@ class MainActivity : AppCompatActivity() {
         val rollButton: Button = findViewById(R.id.roll_button)
         rollButton.setOnClickListener { rollDice() }
         leftDiceImage = findViewById(R.id.left_dice_image)
-        rigthDiceImage = findViewById(R.id.right_dice_image)
+        rightDiceImage = findViewById(R.id.right_dice_image)
     }
 
     private fun rollDice() {
         leftDiceImage.setImageResource(getRandomDiceImage())
-        rigthDiceImage.setImageResource(getRandomDiceImage())
+        rightDiceImage.setImageResource(getRandomDiceImage())
     }
 
     private fun getRandomDiceImage(): Int {

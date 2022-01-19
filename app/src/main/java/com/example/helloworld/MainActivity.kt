@@ -1,5 +1,6 @@
 package com.example.helloworld
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,20 +26,25 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = SampleAdapter {
             when(it) {
                 "DiceRoll" -> {
-                    showToast("DiceRoll")
+                    startActivity(DiceRollActivity::class.java)
                 }
                 "CoroutinesPlayground" -> {
-                    showToast("CoroutinesPlayground")
+                    startActivity(CoroutinesPlaygroundActivity::class.java)
                 }
                 else -> {
-                    showToast("not implemented")
+                    showNotImplementedToast()
                 }
             }
         }
     }
 
-    private fun showToast(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    private fun startActivity(cls: Class<*>) {
+        val intent = Intent(this, cls)
+        startActivity(intent)
+    }
+
+    private fun showNotImplementedToast() {
+        Toast.makeText(this, "not implemented", Toast.LENGTH_SHORT).show()
     }
 }
 // RecyclerView.ViewHolder のコンストラクタには表示するViewのオブジェクトが必要

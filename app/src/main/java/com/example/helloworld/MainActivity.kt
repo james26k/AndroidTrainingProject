@@ -22,7 +22,23 @@ class MainActivity : AppCompatActivity() {
             false
         )
         recyclerView.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
-        recyclerView.adapter = SampleAdapter()
+        recyclerView.adapter = SampleAdapter {
+            when(it) {
+                "DiceRoll" -> {
+                    showToast("DiceRoll")
+                }
+                "CoroutinesPlayground" -> {
+                    showToast("CoroutinesPlayground")
+                }
+                else -> {
+                    showToast("not implemented")
+                }
+            }
+        }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
 // RecyclerView.ViewHolder のコンストラクタには表示するViewのオブジェクトが必要
@@ -42,21 +58,31 @@ private class SampleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(infl
     }
 }
 
-private class SampleAdapter : RecyclerView.Adapter<SampleViewHolder>() {
+private class SampleAdapter(
+    private val onItemClicked: (String) -> Unit
+) : RecyclerView.Adapter<SampleViewHolder>() {
     private val activityNames = listOf(
         "DiceRoll",
         "CoroutinesPlayground",
-        "hoge",
-        "hoge",
-        "hoge",
-        "hoge",
-        "hoge",
-        "hoge",
-        "hoge"
+        "dummy",
+        "dummy",
+        "dummy",
+        "dummy",
+        "dummy",
+        "dummy",
+        "dummy"
     )
     // ViewHolder を作成する必要がある時に呼ばれる
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
-        return SampleViewHolder(parent)
+        val viewHolder = SampleViewHolder(parent)
+        viewHolder.itemView.setOnClickListener {
+            // ViewHolder#bindingAdapterPosition() で ViewHolder が Adapter のどの位置にいるか取得できる
+            val position = viewHolder.bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                onItemClicked(activityNames[position])
+            }
+        }
+        return viewHolder
     }
     // ViewHolder とデータを関連付ける時に呼ばれる
     override fun onBindViewHolder(holder: SampleViewHolder, position: Int) {

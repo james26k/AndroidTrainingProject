@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/layout/activity_coroutines_playground.xml" value="0.13044579533941236" />
         <entry key="app/src/main/res/layout/activity_dice_roll.xml" value="0.13044579533941236" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
       </map>
     </option>
   </component>

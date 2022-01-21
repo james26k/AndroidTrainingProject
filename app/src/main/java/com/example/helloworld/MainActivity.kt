@@ -47,11 +47,10 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "not implemented", Toast.LENGTH_SHORT).show()
     }
 }
-// RecyclerView.ViewHolder のコンストラクタには表示するViewのオブジェクトが必要
+
 private class SampleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(inflateItemView(parent)) {
-    // itemView は RecyclerView.ViewHolder に定義されているパブリックな変数で、コンストラクタに渡した View オブジェクトが設定される
     private val textView: TextView = itemView.findViewById(R.id.text)
-    // データを紐づけるためのメソッド
+
     fun bind(text: String) {
         textView.text = text
     }
@@ -78,11 +77,9 @@ private class SampleAdapter(
         "dummy",
         "dummy"
     )
-    // ViewHolder を作成する必要がある時に呼ばれる
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
         val viewHolder = SampleViewHolder(parent)
         viewHolder.itemView.setOnClickListener {
-            // ViewHolder#bindingAdapterPosition() で ViewHolder が Adapter のどの位置にいるか取得できる
             val position = viewHolder.bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 onItemClicked(activityNames[position])
@@ -90,11 +87,11 @@ private class SampleAdapter(
         }
         return viewHolder
     }
-    // ViewHolder とデータを関連付ける時に呼ばれる
+
     override fun onBindViewHolder(holder: SampleViewHolder, position: Int) {
         holder.bind(activityNames[position])
     }
-    // 表示する要素の数を返す
+
     override fun getItemCount(): Int {
         return activityNames.size
     }

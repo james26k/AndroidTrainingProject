@@ -8,26 +8,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 
 internal class MainFragment : Fragment(R.layout.fragment_main) {
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.main_recycler_view)
         recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
-        recyclerView.adapter = SampleAdapter {
+        val adapter = SampleAdapter {
             when(it) {
-                "DiceRoll" -> {
+                MainViewModel.Project.DICE_ROLL -> {
                     startActivity(DiceRollActivity::class.java)
-                }
-                "CoroutinesPlayground" -> {
+                }s
+                MainViewModel.Project.COROUTINES_PLAYGROUND -> {
                     startActivity(CoroutinesPlaygroundActivity::class.java)
                 }
-                else -> {
+                MainViewModel.Project.DUMMY -> {
                     showNotImplementedToast()
                 }
             }
+        }
+        recyclerView.adapter = adapter
+        viewModel.projects.observe(viewLifecycleOwner) {
+            adapter.projects = it
         }
     }
 
@@ -56,35 +63,26 @@ private class SampleViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(infl
 }
 
 private class SampleAdapter(
-    private val onItemClicked: (String) -> Unit
+    private val onItemClicked: (MainViewModel.Project) -> Unit
 ) : RecyclerView.Adapter<SampleViewHolder>() {
-    private val activityNames = listOf(
-        "DiceRoll",
-        "CoroutinesPlayground",
-        "dummy",
-        "dummy",
-        "dummy",
-        "dummy",
-        "dummy",
-        "dummy",
-        "dummy"
-    )
+    var projects: List<MainViewModel.Project> = emptyList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SampleViewHolder {
         val viewHolder = SampleViewHolder(parent)
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                onItemClicked(activityNames[position])
+                onItemClicked(projects[position])
             }
         }
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: SampleViewHolder, position: Int) {
-        holder.bind(activityNames[position])
+        holder.bind(projects[position].activityName)
     }
 
     override fun getItemCount(): Int {
-        return activityNames.size
+        return projects.size
     }
 }
